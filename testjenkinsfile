@@ -36,7 +36,7 @@ pipeline{
 
         steps{
 
-           sh 'curl -uadmin:AP8gcgmmset5jeYChTJYDN6XmDd -T \
+           sh 'curl -uadmin:AP8PYxTpmnyMe26bsUvyihFH7Sz -T \
 
            *.tgz \
 
