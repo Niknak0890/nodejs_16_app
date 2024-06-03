@@ -1,11 +1,10 @@
 pipeline{
-    agent any
+    agent { docker { image 'node:14'
+
+           args '-u root:sudo'}}
     
     stages{
       stage('Dep install'){ 
-        agent { docker { image 'node:14'
-
-           args '-u root:sudo'}}
 
         steps{
          //   sh 'npm cache clean'
@@ -13,6 +12,32 @@ pipeline{
             sh 'npm install'
         }
       } 
+
+      stage('package'){
+
+        steps{
+
+            sh 'rm -rf *.tgz || echo ""'
+
+            sh 'npm pack'
+
+        }
+
+      } 
+
+      stage('upload artifact'){
+
+        steps{
+
+           sh 'curl -uadmin:AP8PYxTpmnyMe26bsUvyihFH7Sz -T \
+
+           *.tgz \
+
+           "http://52.91.182.226:8081/artifactory/nodejs/utc-app${BUILD_ID}.tgz" '
+
+        }
+
+      }
 
     }
 
